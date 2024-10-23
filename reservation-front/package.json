@@ -1,0 +1,16 @@
+{
+  "name": "playchange-front",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.1",
+    "cors": "^2.8.5"
+  },
+  "author": "",
+  "license": "ISC"
+}

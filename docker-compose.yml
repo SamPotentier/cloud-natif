@@ -1,0 +1,40 @@
+version: '3'
+services:
+  clients-api:
+    build: ./clients-api
+    ports:
+      - "3003:3000"
+    networks:
+      - app-network
+
+  playlists-api:
+    build: ./playlists-api
+    ports:
+      - "3001:3000"
+    networks:
+      - app-network
+
+  soirees-api:
+    build: ./soirees-api
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+
+  playchange-front:
+    build: ./playchange-front
+    ports:
+      - "3002:3000"
+    networks:
+      - app-network
+
+  reservation-front:
+    build: ./reservation-front
+    ports:  
+      - "3004:3000"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
