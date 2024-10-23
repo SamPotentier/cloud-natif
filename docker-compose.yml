@@ -1,5 +1,14 @@
 version: '3'
 services:
+
+  consul:
+    image: consul:1.12
+    command: agent -dev -client=0.0.0.0
+    ports:
+      - "8500:8500" # Consul UI
+    networks:
+      - app-network
+
   clients-api:
     build: ./clients-api
     ports:
@@ -10,10 +19,10 @@ services:
   playlists-api:
     build: ./playlists-api
     ports:
-      - "2900-3001:3000"
+      - "2991-3001:3000"
     networks:
       - app-network
-    scale: 20
+    scale: 10
 
   soirees-api:
     build: ./soirees-api

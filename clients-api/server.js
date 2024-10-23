@@ -11,6 +11,22 @@ app.use(cors());
 
 let clients = [];
 
+const axios = require('axios');
+
+// Enregistrement de l'API dans Consul
+axios.put('http://consul:8500/v1/agent/service/register', {
+  Name: 'clients-api',
+  Address: 'clients-api',
+  Port: 3000,
+  Tags: ['api', 'clients']
+})
+.then(() => {
+  console.log('Service clients-api enregistré avec succès dans Consul');
+})
+.catch((error) => {
+  console.error('Erreur lors de l\'enregistrement dans Consul:', error.message);
+});
+
 // Chargement des clients à partir du fichier JSON
 const loadClients = () => {
     if (fs.existsSync('clients.json')) {

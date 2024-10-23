@@ -14,7 +14,8 @@
     "fs": "^0.0.1-security",
     "uuid": "^10.0.0",
     "nodemon": "^3.1.7",
-    "cors": "^2.8.5"
+    "cors": "^2.8.5",
+    "axios": "^1.7.7"
   },
   "devDependencies": {
     "nodemon": "^3.1.7"

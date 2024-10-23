@@ -9,6 +9,22 @@ app.use(express.json());
 
 app.use(cors());
 
+const axios = require('axios');
+
+// Enregistrement de l'API dans Consul
+axios.put('http://consul:8500/v1/agent/service/register', {
+  Name: 'playlists-api',
+  Address: 'playlists-api',
+  Port: 3000,
+  Tags: ['playlists', 'api']
+})
+.then(() => {
+  console.log('Service playlists-api enregistré avec succès dans Consul');
+})
+.catch((error) => {
+  console.error('Erreur lors de l\'enregistrement dans Consul:', error.message);
+});
+
 const FILE_PATH = './playlists.json';
 
 const readFile = () => {
