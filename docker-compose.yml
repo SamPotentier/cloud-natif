@@ -10,9 +10,10 @@ services:
   playlists-api:
     build: ./playlists-api
     ports:
-      - "3001:3000"
+      - "2900-3001:3000"
     networks:
       - app-network
+    scale: 20
 
   soirees-api:
     build: ./soirees-api
