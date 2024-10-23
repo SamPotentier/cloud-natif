@@ -68,7 +68,7 @@
     <title>Gestion des Soirées et Playlists</title>
     <script>
         async function fetchSoirees() {
-            const response = await fetch('http://localhost:3000/soirees');
+            const response = await fetch('http://localhost:3020/soirees');
             const soirees = await response.json();
             const soireesList = document.getElementById('soirees-list');
             soireesList.innerHTML = '';

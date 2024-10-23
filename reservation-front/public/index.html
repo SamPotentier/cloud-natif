@@ -118,7 +118,7 @@
           .catch(error => console.error('Erreur lors du fetch des playlists :', error));
   
         // Fetch la liste des clients depuis localhost:3003/clients
-        fetch('http://localhost:3003/clients')
+        fetch('http://localhost:3010/clients')
           .then(response => response.json())
           .then(data => {
             const clientSelect = document.getElementById('client-select');
@@ -153,7 +153,7 @@
             date: date
           };console.log(JSON.stringify(soiree));
           // Envoi de la requête POST vers localhost:3000/soirees
-          fetch('http://localhost:3000/soirees', {
+          fetch('http://localhost:3020/soirees', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
