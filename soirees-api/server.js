@@ -10,22 +10,6 @@ const port = 3000;
 
 app.use(cors());
 
-app.use(cors());
-
-// Enregistrement de l'API dans Consul
-axios.put('http://consul:8500/v1/agent/service/register', {
-  Name: 'soirees-api',
-  Address: 'soirees-api',
-  Port: 3000,
-  Tags: ['soirees', 'api']
-})
-.then(() => {
-  console.log('Service soirees-api enregistré avec succès dans Consul');
-})
-.catch((error) => {
-  console.error('Erreur lors de l\'enregistrement dans Consul:', error.message);
-});
-
 // Middleware pour les fichiers statiques et le parsing des formulaires
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: false }));

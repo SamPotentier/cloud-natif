@@ -11,12 +11,14 @@ app.use(cors());
 
 const axios = require('axios');
 
+id = uuidv4();
 // Enregistrement de l'API dans Consul
 axios.put('http://consul:8500/v1/agent/service/register', {
   Name: 'playlists-api',
   Address: 'playlists-api',
   Port: 3000,
-  Tags: ['playlists', 'api']
+  Tags: ['playlists', 'api'],
+  id:id
 })
 .then(() => {
   console.log('Service playlists-api enregistré avec succès dans Consul');
@@ -24,6 +26,19 @@ axios.put('http://consul:8500/v1/agent/service/register', {
 .catch((error) => {
   console.error('Erreur lors de l\'enregistrement dans Consul:', error.message);
 });
+
+['SIGINT', 'SIGTERM', 'SIGQUIT']
+  .forEach(signal => process.on(signal, async () => {
+    console.log(signal);
+    await axios.put('http://consul:8500/v1/agent/service/deregister/'+id)
+    .then(() => {
+      console.log('Service playlists-api supprimé avec succès dans Consul');
+    })
+    .catch((error) => {
+      console.error('Erreur lors de la suppression dans Consul:', error.message);
+    });
+    process.exit();
+  }));
 
 const FILE_PATH = './playlists.json';
 

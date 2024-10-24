@@ -17,12 +17,12 @@ services:
       - app-network
 
   playlists-api:
+    hostname : playlists-api
     build: ./playlists-api
     ports:
-      - "2991-3001:3000"
+      - "3001-3003:3000"
     networks:
       - app-network
-    scale: 10
 
   soirees-api:
     build: ./soirees-api
