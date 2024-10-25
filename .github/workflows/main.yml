@@ -1,0 +1,30 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Add SSH key
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy application via SSH
+        env:
+          SERVER_USER: "maalsi"
+          SERVER_IP: "34.155.231.97"
+        run: |
+          ssh -o StrictHostKeyChecking=no -i $SSH_KEY_PATH $SERVER_USER@$SERVER_IP << 'EOF'
+            cd srv
+            git pull
+            docker-compose up -d
+          EOF
