@@ -20,7 +20,7 @@ jobs:
           username: maalsi
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /srv/cesi-test-cicd
-            git clone https://github.com/SamPotentier/cloud-natif.git
+            cd /srv/cloud-natif
+            git pull
             docker compose down
             docker compose up -d --build
