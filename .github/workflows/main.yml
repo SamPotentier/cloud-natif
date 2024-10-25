@@ -27,5 +27,5 @@ jobs:
             mkdir test
             cd test
             git clone https://github.com/SamPotentier/cloud-natif.git
-            docker-compose up -d
+            docker compose up -d
           EOF
