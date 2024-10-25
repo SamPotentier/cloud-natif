@@ -13,7 +13,7 @@ app.use(cors());
 const axios = require('axios');
 
 id = uuidv4();
-// Enregistrement de l'API dans Consul vraiment la oulala
+// Enregistrement de l'API dans Consul vraiment la oulala e
 axios.put('http://consul:8500/v1/agent/service/register', {
   Name: 'playlists-api',
   Address: getLocalIp(),
