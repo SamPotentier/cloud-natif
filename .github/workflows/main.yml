@@ -1,0 +1,4 @@
+ssh -i path maalsi@34.155.231.97
+cd srv
+git pull
+docker-compose up
