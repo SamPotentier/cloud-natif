@@ -3,6 +3,7 @@ const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
 const app = express();
 const PORT = 3000;
+const os = require('os');
 const cors = require("cors");
 
 app.use(express.json());
@@ -15,16 +16,28 @@ id = uuidv4();
 // Enregistrement de l'API dans Consul
 axios.put('http://consul:8500/v1/agent/service/register', {
   Name: 'playlists-api',
-  Address: 'playlists-api',
+  Address: getLocalIp(),
   Port: 3000,
   Tags: ['playlists', 'api'],
-  id:id
+  id:id,
+  Check : {
+    http     : "http://"+getLocalIp()+":3000/health",
+    interval : "15s",
+    timeout :"45s"
+  }
 })
 .then(() => {
   console.log('Service playlists-api enregistré avec succès dans Consul');
 })
 .catch((error) => {
   console.error('Erreur lors de l\'enregistrement dans Consul:', error.message);
+});
+
+// GET : Récupérer une playlist par son id
+app.get('/health', (req, res) => {
+
+  res.status(200).json({status:"up"});
+
 });
 
 ['SIGINT', 'SIGTERM', 'SIGQUIT']
@@ -123,6 +136,19 @@ app.delete('/playlists/:id', (req, res) => {
     res.status(404).json({ message: 'Playlist non trouvée' });
   }
 });
+
+function getLocalIp() {
+  const interfaces = os.networkInterfaces();
+  for (const iface of Object.values(interfaces)) {
+    for (const details of iface) {
+      // On vérifie que ce soit une adresse IPv4 et non une adresse interne (localhost)
+      if (details.family === "IPv4" && !details.internal) {
+        return details.address;
+      }
+    }
+  }
+  return "127.0.0.1"; // Par défaut, retourne localhost si aucune IP externe n'est trouvée
+}
 
 app.listen(PORT, () => {
   console.log(`Serveur démarré sur http://localhost:${PORT}`);
