@@ -24,6 +24,8 @@ jobs:
           SERVER_IP: "34.155.231.97"
         run: |
           ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP << 'EOF'
+            mkdir test
+            cd test
             git clone https://github.com/SamPotentier/cloud-natif.git
             docker-compose up -d
           EOF
