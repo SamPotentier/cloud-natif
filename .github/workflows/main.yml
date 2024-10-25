@@ -23,4 +23,4 @@ jobs:
             cd /srv/cesi-test-cicd
             git clone https://github.com/SamPotentier/cloud-natif.git
             docker compose down
-            dowker compose up -d --build
+            docker compose up -d --build
